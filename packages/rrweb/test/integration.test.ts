@@ -76,12 +76,14 @@ describe('record integration tests', function (this: ISuite) {
         x: Math.round(x + width / 2),
         y: Math.round(y + height / 2),
       };
-    }, span);
+    }, span!);
     await page.touchscreen.tap(center.x, center.y);
 
     await page.click('a');
 
-    const snapshots = await page.evaluate('window.snapshots');
+    const snapshots = (await page.evaluate(
+      'window.snapshots',
+    )) as eventWithTime[];
     assertSnapshot(snapshots);
   });
 
@@ -186,7 +188,9 @@ describe('record integration tests', function (this: ISuite) {
       li.removeAttribute('aria-label');
     });
 
-    const snapshots = await page.evaluate('window.snapshots');
+    const snapshots = (await page.evaluate(
+      'window.snapshots',
+    )) as eventWithTime[];
     assertSnapshot(snapshots);
   });
 
