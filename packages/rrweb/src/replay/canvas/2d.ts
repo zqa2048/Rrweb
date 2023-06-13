@@ -40,9 +40,9 @@ export default async function canvasMutation({
       imageMap.get(event);
       original.apply(ctx, mutation.args);
     } else {
-      const args = await Promise.all(
+      const args = (await Promise.all(
         mutation.args.map(deserializeArg(imageMap, ctx)),
-      );
+      )) as unknown[];
       original.apply(ctx, args);
     }
   } catch (error) {
