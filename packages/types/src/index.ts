@@ -69,10 +69,7 @@ export type pluginEvent<T = unknown> = {
 
 export type assetEvent = {
   type: EventType.Asset;
-  data: {
-    url: string;
-    payload: SerializedCanvasArg;
-  };
+  data: assetParam;
 };
 
 export enum IncrementalSource {
@@ -601,10 +598,18 @@ export type selectionParam = {
 
 export type selectionCallback = (p: selectionParam) => void;
 
-export type assetParam = {
-  url: string;
-  payload: SerializedCanvasArg;
-};
+export type assetParam =
+  | {
+      url: string;
+      payload: SerializedCanvasArg;
+    }
+  | {
+      url: string;
+      failed: {
+        status?: number;
+        message: string;
+      };
+    };
 
 export type assetCallback = (d: assetParam) => void;
 
